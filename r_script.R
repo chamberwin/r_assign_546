@@ -38,3 +38,7 @@ view(snpsnip)
 #of the "janitor" package. Very handy!
 trimteo <- row_to_names(transteo, 3, remove_row = TRUE, remove_rows_above = TRUE)
 trimmaize <- row_to_names(transmaize, 3, remove_row = TRUE, remove_rows_above = TRUE)
+summary(trimteo)
+summary(snpsnip)
+#my two dataframes are equal length and sorted in the same way.I am now ready to join
+#by the common column. 
