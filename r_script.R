@@ -42,3 +42,5 @@ summary(trimteo)
 summary(snpsnip)
 #my two dataframes are equal length and sorted in the same way.I am now ready to join
 #by the common column. 
+teosnp <- cbind(snpsnip,trimteo)
+maisnp <- cbind(snpsnip,trimmaize)
