@@ -1,4 +1,5 @@
 getwd()
+library(janitor)
 library(tidyverse)
 library(dplyr)
 fang<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/fang_et_al_genotypes.txt")
@@ -33,3 +34,7 @@ view(transmaize)
 #SNP_ID, Chromosome, Position
 snpsnip <- select(snp, c('SNP_ID','Chromosome','Position'))
 view(snpsnip)
+#looks good. Now I will trim and add a header using the "row_to_names" function
+#of the "janitor" package. Very handy!
+trimteo <- row_to_names(transteo, 3, remove_row = TRUE, remove_rows_above = TRUE)
+trimmaize <- row_to_names(transmaize, 3, remove_row = TRUE, remove_rows_above = TRUE)
