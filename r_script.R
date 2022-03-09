@@ -24,3 +24,12 @@ view(maize)
 #this has created a subset of just the Maize values
 teosinte <- filter(fang, `Group` %in% c('ZMPBA','ZMPIL','ZMPJA'))
 view(teosinte)
+#Now I also have a subset of teosinte data. 
+transteo <- t(teosinte)
+view(transteo)
+transmaize <- t(maize)
+view(transmaize)
+#Next I will cut my snp file so that I have the columns
+#SNP_ID, Chromosome, Position
+snpsnip <- select(snp, c('SNP_ID','Chromosome','Position'))
+view(snpsnip)
