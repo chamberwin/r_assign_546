@@ -10,5 +10,10 @@ snp #and snp is a 983x15 tibble. Considerably smaller
 object.size(fang) #23.14 MB, or 23124584 bytes
 object.size(snp) #359.384 KB, or 359384 bytes
 #so to sum it up, fang is 2782 rows, 986 columns, and 23.14 MB
-#while snp is 983 rows, 15 colums, and 359.384 KB. 
+#while snp is 983 rows, 15 columns, and 359.384 KB. 
+fangcols<-colnames(fang)
+fangcols #here are the column names for my fang file
+snpcols<- colnames(snp)
+snpcols #and my column names for snp
+#for both files, SNP_ID is the first column
 
