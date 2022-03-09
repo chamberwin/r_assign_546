@@ -1,5 +1,6 @@
 getwd()
 library(tidyverse)
+library(dplyr)
 fang<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/fang_et_al_genotypes.txt")
 view(fang)
 snp<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/snp_position.txt")
@@ -18,4 +19,8 @@ snpcols #and my column names for snp
 #for both files, SNP_ID is the first column
 #Additionally, it would be helpful to make my variables separate
 #from my code as much as possible. Maybe alter it later?
-view(sp)
+maize <- filter(fang, `Group` %in% c('ZMMLR','ZMMR','ZMMIL'))
+view(maize)
+#this has created a subset of just the Maize values
+teosinte <- filter(fang, `Group` %in% c('ZMPBA','ZMPIL','ZMPJA'))
+view(teosinte)
