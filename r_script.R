@@ -16,4 +16,5 @@ fangcols #here are the column names for my fang file
 snpcols<- colnames(snp)
 snpcols #and my column names for snp
 #for both files, SNP_ID is the first column
-
+#Additionally, it would be helpful to make my variables separate
+#from my code as much as possible. Maybe alter it later?
