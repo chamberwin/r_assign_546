@@ -43,4 +43,16 @@ summary(snpsnip)
 #my two dataframes are equal length and sorted in the same way.I am now ready to join
 #by the common column. 
 teosnp <- cbind(snpsnip,trimteo)
+teosintesnp<-subset(teosnp, Chromosome!="unknown" & Chromosome!="multiple")
+
 maisnp <- cbind(snpsnip,trimmaize)
+maizesnp<-subset(maisnp, Chromosome!="unknown" & Chromosome!="multiple")
+
+#now the files are bound together, with the first three columns coming from my snp file
+#I have also removed the entries that had unknown and multiple chromosomes (Is this acceptable??)
+#I am now ready to move to the next step.
+#now I need a file with missing data encoded by "?" and one with missing data encoded by "-"
+#my file already has missing data encoded by "?". 
+#next step is to sort by position values for my existing files. 
+view(maizesnp)
+
