@@ -3,9 +3,9 @@ library(janitor)
 library(tidyverse)
 library(dplyr)
 fang<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/fang_et_al_genotypes.txt")
-view(fang)
+#view(fang)
 snp<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/snp_position.txt")
-view(snp)
+#view(snp)
 #Now I have both snp and fang files loaded and stored in objects in r
 fang #this tells me that fang is a 2782X986 tibble
 snp #and snp is a 983x15 tibble. Considerably smaller
@@ -21,19 +21,19 @@ snpcols #and my column names for snp
 #Additionally, it would be helpful to make my variables separate
 #from my code as much as possible. Maybe alter it later?
 maize <- filter(fang, `Group` %in% c('ZMMLR','ZMMR','ZMMIL'))
-view(maize)
+#view(maize)
 #this has created a subset of just the Maize values
 teosinte <- filter(fang, `Group` %in% c('ZMPBA','ZMPIL','ZMPJA'))
-view(teosinte)
+#view(teosinte)
 #Now I also have a subset of teosinte data. 
 transteo <- t(teosinte)
-view(transteo)
+#view(transteo)
 transmaize <- t(maize)
-view(transmaize)
+#view(transmaize)
 #Next I will cut my snp file so that I have the columns
 #SNP_ID, Chromosome, Position
 snpsnip <- select(snp, c('SNP_ID','Chromosome','Position'))
-view(snpsnip)
+#view(snpsnip)
 #looks good. Now I will trim and add a header using the "row_to_names" function
 #of the "janitor" package. Very handy!
 trimteo <- row_to_names(transteo, 3, remove_row = TRUE, remove_rows_above = TRUE)
@@ -71,7 +71,7 @@ teo_quest <- teosintesnp[order(teosintesnp$Position) ,]
 #not sure about the above so im going to save and exit
 #yeah ok after returning the following day that still looks terrible
 #so let's try again
-df <- maize_quest
-is.character(maize_quest$ZMMLR.1)
-df2 <- str_replace_all(df, pattern = "?", replacement = "-")
-view(df2)                       
+view(maize_quest)
+maize_dash <- data.frame(lapply(maize_quest, gsub, pattern = "[?]", replacement = "-"))
+teo_dash <- data.frame(lapply(teo_quest, gsub, pattern = "[?]", replacement = "-"))
+
