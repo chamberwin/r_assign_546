@@ -43,16 +43,27 @@ summary(snpsnip)
 #my two dataframes are equal length and sorted in the same way.I am now ready to join
 #by the common column. 
 teosnp <- cbind(snpsnip,trimteo)
-teosintesnp<-subset(teosnp, Chromosome!="unknown" & Chromosome!="multiple")
+teosintesnp1<-subset(teosnp, Chromosome!="unknown" & Chromosome!="multiple")
+teosintesnp<-subset(teosintesnp1, Position!="multiple")
 
 maisnp <- cbind(snpsnip,trimmaize)
-maizesnp<-subset(maisnp, Chromosome!="unknown" & Chromosome!="multiple")
+maizesnp1<-subset(maisnp, Chromosome!="unknown" & Chromosome!="multiple")
+maizesnp<-subset(maizesnp1, Position!="multiple")
 
 #now the files are bound together, with the first three columns coming from my snp file
-#I have also removed the entries that had unknown and multiple chromosomes (Is this acceptable??)
+#I have also removed the entries that had unknown and multiple chromosomes (Is this acceptable????)
 #I am now ready to move to the next step.
 #now I need a file with missing data encoded by "?" and one with missing data encoded by "-"
 #my file already has missing data encoded by "?". 
-#next step is to sort by position values for my existing files. 
-view(maizesnp)
+#next step is to sort by position values for my existing files. After this point, I will
+#make another file with decreasing position values and "-" in place of missing values. 
+maizesnp$Position = as.numeric(as.character(maizesnp$Position))
+is.numeric(maizesnp$Position)
+maize_quest <- maizesnp[order(maizesnp$Position) ,]
+#I had to convert the Position column to numeric
+#Now will do the same for teosinte
+teosintesnp$Position = as.numeric(as.character(teosintesnp$Position))
+is.numeric(teosintesnp$Position)
+teo_quest <- teosintesnp[order(teosintesnp$Position) ,]
+#The next step is to reverse sort by Position and replace ? with -
 
