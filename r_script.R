@@ -66,9 +66,12 @@ teosintesnp$Position = as.numeric(as.character(teosintesnp$Position))
 is.numeric(teosintesnp$Position)
 teo_quest <- teosintesnp[order(teosintesnp$Position) ,]
 #The next step is to reverse sort by Position and replace ? with -
-dashm <-gsub("?","-", maize_quest) 
-view(dashm)
+#dashm <-gsub("?","-", maize_quest) 
+#view(dashm)
 #not sure about the above so im going to save and exit
-
-
-≠
+#yeah ok after returning the following day that still looks terrible
+#so let's try again
+df <- maize_quest
+is.character(maize_quest$ZMMLR.1)
+df2 <- str_replace_all(df, pattern = "?", replacement = "-")
+view(df2)                       
