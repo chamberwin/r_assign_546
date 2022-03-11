@@ -262,8 +262,7 @@ bind%>%
   select(Chromosome, Position,Species) %>%
   mutate(
     Chromnumber = Chromosome
-    
-  )%>% {.} -> bind1
+    )%>% {.} -> bind1
 #now I have the key file to make visualization1 from
 is.numeric(bind1$Chromosome)
 bind1$Chromosome = as.character(as.numeric(bind1$Chromosome))
@@ -271,4 +270,17 @@ bind1$Chromosome = as.character(as.numeric(bind1$Chromosome))
 #
 ggplot(bind1, aes(x=Chromosome, fill= Species, color= Species)) + geom_bar(bins=10, position = "dodge")
 #see above, the semi final success
-getwd()
+#
+dim(bind1)
+view(teo_dash)
+view(maize_dash)
+#
+pivot_teo1 <- t(teo_dash)
+view(pivot_teo)
+pivot_maize1 <- t(maize_dash)
+#and now I'll give them column names like I did above
+pivot_maize <- row_to_names(pivot_maize1, 1, remove_row = TRUE, remove_rows_above = TRUE)
+pivot_m<- pivot_maize[-c(1,2), ]
+pivot_teo <- row_to_names(pivot_teo1, 1, remove_row = TRUE, remove_rows_above = TRUE)
+pivot_t<- pivot_teo[-c(1,2), ]
+#now I have the files pivot_m and pivot_t which I will eventually bind together 
