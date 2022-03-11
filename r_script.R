@@ -220,3 +220,6 @@ write.csv(teo_decrease_10,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_
   #one of the ggplot "position adjustments" options.
 #Your own visualization
   #Visualize one other feature of the dataset. The choice is up to you!
+#
+#To do these steps, I will use the "maize_quest" and "teo_quest" files
+#since order does not matter
