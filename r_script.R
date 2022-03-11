@@ -271,3 +271,31 @@ bind1$Chromosome = as.character(as.numeric(bind1$Chromosome))
 ggplot(bind1, aes(x=Chromosome, fill= Species, color= Species)) + geom_bar(bins=10, position = "dodge")
 #see above, the semi final success
 #
+fang #this tells me that fang is a 2782X986 tibble
+snp #and snp is a 983x15 tibble. Considerably smaller
+object.size(fang) #23.14 MB, or 23124584 bytes
+object.size(snp) #359.384 KB, or 359384 bytes
+#so to sum it up, fang is 2782 rows, 986 columns, and 23.14 MB
+#while snp is 983 rows, 15 columns, and 359.384 KB. 
+fangcols<-colnames(fang)
+fangcols #here are the column names for my fang file
+snpcols<- colnames(snp)
+snpcols #and my column names for snp
+#for both files, SNP_ID is the first column
+#Additionally, it would be helpful to make my variables separate
+#from my code as much as possible. Maybe alter it later?
+full_mt <- filter(fang, `Group` %in% c('ZMMLR','ZMMR','ZMMIL','ZMPBA','ZMPIL','ZMPJA'))
+view(full_mt)
+trans_full_mt <- t(full_mt)
+
+#looks good. Now I will trim and add a header using the "row_to_names" function
+#of the "janitor" package. Very handy!
+trimfull <- row_to_names(trans_full_mt, 3, remove_row = TRUE, remove_rows_above = TRUE)
+
+#my two dataframes are equal length and sorted in the same way.I am now ready to join
+#by the common column. 
+fullsnp <- cbind(snpsnip,trimfull)
+trimfull1<-subset(fullsnp, Chromosome!="unknown" & Chromosome!="multiple")
+fullsnpcombo<-subset(trimfull1, Position!="multiple")
+view(fullsnpcombo)
+#now I'm ready to designate as heterozygous or homozygous
