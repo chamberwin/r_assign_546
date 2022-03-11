@@ -241,12 +241,28 @@ dim(maize_long)
 mutate(maize_long, maize_long$Species <- ("Maize"))
 view(maize_long)
 maize_long1 <- mutate(maize_long, maize_long$Species==("Maize"))
-teo_long1 <- mutate(teo_long, teo_long$Species==("Teosinte"))
-view(teo_long1)
-bind <- bind_rows(maize_long1, teo_long1)
+maize_long%>% 
+  select(Chromosome, Position) %>%
+  mutate(
+    Species = "Maize"
+   
+  )%>% {.} -> maize_mut
+view(maize_mut)
+#
+teo_long%>% 
+  select(Chromosome, Position) %>%
+  mutate(
+    Species = "Teosinte"
+    
+  )%>% {.} -> teo_mut
+
+bind <- bind_rows(maize_mut, teo_mut)
 view(bind)
 #now I have the key file to make visualization1 from
 ggplot(bind, aes(x=Chromosome, fill= Species,color= Species)) + geom_bar(bins=10 )
 #looks awesome but could use a little improvement
+
+ggplot(bind, aes(x=Chromosome, y=Chromosome, fill=Species)) +
+  geom_bar(stat='identity', position='dodge') 
 
                                                        
