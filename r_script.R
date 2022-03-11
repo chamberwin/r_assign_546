@@ -258,11 +258,17 @@ teo_long%>%
 
 bind <- bind_rows(maize_mut, teo_mut)
 view(bind)
+bind%>% 
+  select(Chromosome, Position,Species) %>%
+  mutate(
+    Chromnumber = Chromosome
+    
+  )%>% {.} -> bind1
 #now I have the key file to make visualization1 from
-ggplot(bind, aes(x=Chromosome, fill= Species,color= Species)) + geom_bar(bins=10 )
+is.numeric(bind1$Chromosome)
+bind1$Chromosome = as.character(as.numeric(bind1$Chromosome))
 #looks awesome but could use a little improvement
-
-ggplot(bind, aes(x=Chromosome, y=Chromosome, fill=Species)) +
-  geom_bar(stat='identity', position='dodge') 
-
-                                                       
+#
+ggplot(bind1, aes(x=Chromosome, fill= Species, color= Species)) + geom_bar(bins=10, position = "dodge")
+#see above, the semi final success
+getwd()
