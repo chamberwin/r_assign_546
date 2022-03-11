@@ -225,18 +225,35 @@ write.csv(teo_decrease_10,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_
 #To do these steps, I will use the "maize_dash" and "teo_dash" files
 #since order does not matter. I choose the dash files because the question mark 
 #appears to mess up a lot of R codes
-maize_df <- maize_quest
+maize_df <- maize_dash
+teo_df <- teo_dash
 maize_df$Position = as.character(as.double(maize_df$Position))
-
+teo_df$Position = as.character(as.double(teo_df$Position))
 maize_df %>% pivot_longer(!Chromosome, names_to = "Position", values_to= "BP", )%>%  {.} -> maize_long
+teo_df %>% pivot_longer(!Chromosome, names_to = "Position", values_to= "BP", )%>%  {.} -> teo_long
 
 maize_long$Chromosome = as.numeric(as.character(maize_long$Chromosome))
+teo_long$Chromosome = as.numeric(as.character(teo_long$Chromosome))
 
 view(maize_long)
+view(teo_long)
+dim(maize_long)
+mutate(maize_long, maize_long$Species <- ("Maize"))
+view(maize_long)
+maize_long1 <- mutate(maize_long, maize_long$Species==("Maize"))
+teo_long1 <- mutate(teo_long, teo_long$Species==("Teosinte"))
+view(teo_long1)
+bind <- bind_rows(maize_long1, teo_long1)
+view(bind)
+dim(bind)
+
 #did that work? not sure but i'm done for the night. 
 view(maize_df)
 counts <- table(maize_df$Chromosome)
 barplot(counts, main="Positions per Chromosome for Maize",
         xlab="Chromosomes") 
 #The above works, but I  need it in ggplot
+ggplot(maize_long, aes(x=Chromosome)) + geom_histogram(bins=10)
+ggplot(maize_long, aes(x=Chromosome, fill= Chromosome,)) + geom_bar(bins=10 )
 
+                                                       
