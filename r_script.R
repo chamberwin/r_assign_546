@@ -196,5 +196,7 @@ write.csv(teo_decrease_9,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_d
 teo_decrease_10<-subset(teo_dash, Chromosome=="10")
 write.csv(teo_decrease_10,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_dec_10.csv")
 #
+#now that I have created all the files, I'm going to clear the environment, delete the files, 
+#and run the whole thing through a test drive. 
 
 
