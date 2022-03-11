@@ -66,11 +66,135 @@ teosintesnp$Position = as.numeric(as.character(teosintesnp$Position))
 is.numeric(teosintesnp$Position)
 teo_quest <- teosintesnp[order(teosintesnp$Position) ,]
 #The next step is to reverse sort by Position and replace ? with -
-view(maize_quest)
 maize_dash1 <- data.frame(lapply(maize_quest, gsub, pattern = "[?]", replacement = "-"))
 teo_dash1 <- data.frame(lapply(teo_quest, gsub, pattern = "[?]", replacement = "-"))
-is.data.frame(teo_dash1)
 #and I will inverse sort by position
 maize_dash <-maize_dash1[order(rev(maize_dash1$Position)),]
 teo_dash <-teo_dash1[order(rev(teo_dash1$Position)),]
+#now I'm ready to split into separate files for maize and teosinte data. 
+# I need chr 1-10 of maize and teo, ascending position (maize_quest, teo_quest)
+# and also chr 1-10 of maize and teo, descending position (maize_dash, teo_dash)
+maize_increase_1<-subset(maize_quest, Chromosome=="1")
+write.csv(maize_increase_1,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_inc_1.csv")
+#
+maize_increase_2<-subset(maize_quest, Chromosome=="2")
+write.csv(maize_increase_2,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_inc_2.csv")
+#
+maize_increase_3<-subset(maize_quest, Chromosome=="3")
+write.csv(maize_increase_3,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_inc_3.csv")
+#
+maize_increase_4<-subset(maize_quest, Chromosome=="4")
+write.csv(maize_increase_4,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_inc_4.csv")
+#
+maize_increase_5<-subset(maize_quest, Chromosome=="5")
+write.csv(maize_increase_5,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_inc_5.csv")
+#
+maize_increase_6<-subset(maize_quest, Chromosome=="6")
+write.csv(maize_increase_6,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_inc_6.csv")
+#
+maize_increase_7<-subset(maize_quest, Chromosome=="7")
+write.csv(maize_increase_7,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_inc_7.csv")
+#
+maize_increase_8<-subset(maize_quest, Chromosome=="8")
+write.csv(maize_increase_8,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_inc_8.csv")
+#
+maize_increase_9<-subset(maize_quest, Chromosome=="9")
+write.csv(maize_increase_9,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_inc_9.csv")
+#
+maize_increase_10<-subset(maize_quest, Chromosome=="10")
+write.csv(maize_increase_10,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_inc_10.csv")
+#
+teo_increase_1<-subset(teo_quest, Chromosome=="1")
+write.csv(teo_increase_1,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_inc_1.csv")
+#
+teo_increase_2<-subset(teo_quest, Chromosome=="2")
+write.csv(teo_increase_2,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_inc_2.csv")
+#
+teo_increase_3<-subset(teo_quest, Chromosome=="3")
+write.csv(teo_increase_3,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_inc_3.csv")
+#
+teo_increase_4<-subset(teo_quest, Chromosome=="4")
+write.csv(teo_increase_4,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_inc_4.csv")
+#
+teo_increase_5<-subset(teo_quest, Chromosome=="5")
+write.csv(teo_increase_5,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_inc_5.csv")
+#
+teo_increase_6<-subset(teo_quest, Chromosome=="6")
+write.csv(teo_increase_6,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_inc_6.csv")
+#
+teo_increase_7<-subset(teo_quest, Chromosome=="7")
+write.csv(teo_increase_7,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_inc_7.csv")
+#
+teo_increase_8<-subset(teo_quest, Chromosome=="8")
+write.csv(teo_increase_8,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_inc_8.csv")
+#
+teo_increase_9<-subset(teo_quest, Chromosome=="9")
+write.csv(teo_increase_9,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_inc_9.csv")
+#
+teo_increase_10<-subset(teo_quest, Chromosome=="10")
+write.csv(teo_increase_10,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_inc_10.csv")
+#
+#
+#
+maize_decrease_1<-subset(maize_dash, Chromosome=="1")
+write.csv(maize_decrease_1,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_dec_1.csv")
+#
+maize_decrease_2<-subset(maize_dash, Chromosome=="2")
+write.csv(maize_decrease_2,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_dec_2.csv")
+#
+maize_decrease_3<-subset(maize_dash, Chromosome=="3")
+write.csv(maize_decrease_3,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_dec_3.csv")
+#
+maize_decrease_4<-subset(maize_dash, Chromosome=="4")
+write.csv(maize_decrease_4,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_dec_4.csv")
+#
+maize_decrease_5<-subset(maize_dash, Chromosome=="5")
+write.csv(maize_decrease_5,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_dec_5.csv")
+#
+maize_decrease_6<-subset(maize_dash, Chromosome=="6")
+write.csv(maize_decrease_6,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_dec_6.csv")
+#
+maize_decrease_7<-subset(maize_dash, Chromosome=="7")
+write.csv(maize_decrease_7,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_dec_7.csv")
+#
+maize_decrease_8<-subset(maize_dash, Chromosome=="8")
+write.csv(maize_decrease_8,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_dec_8.csv")
+#
+maize_decrease_9<-subset(maize_dash, Chromosome=="9")
+write.csv(maize_decrease_9,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_dec_9.csv")
+#
+maize_decrease_10<-subset(maize_dash, Chromosome=="10")
+write.csv(maize_decrease_10,"/Users/gracecarey/Documents/GitHub/r_assign_546//maize_dec_10.csv")
+#
+teo_decrease_1<-subset(teo_dash, Chromosome=="1")
+write.csv(teo_decrease_1,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_dec_1.csv")
+#
+teo_decrease_2<-subset(teo_dash, Chromosome=="2")
+write.csv(teo_decrease_2,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_dec_2.csv")
+#
+teo_decrease_3<-subset(teo_dash, Chromosome=="3")
+write.csv(teo_decrease_3,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_dec_3.csv")
+#
+teo_decrease_4<-subset(teo_dash, Chromosome=="4")
+write.csv(teo_decrease_4,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_dec_4.csv")
+#
+teo_decrease_5<-subset(teo_dash, Chromosome=="5")
+write.csv(teo_decrease_5,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_dec_5.csv")
+#
+teo_decrease_6<-subset(teo_dash, Chromosome=="6")
+write.csv(teo_decrease_6,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_dec_6.csv")
+#
+teo_decrease_7<-subset(teo_dash, Chromosome=="7")
+write.csv(teo_decrease_7,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_dec_7.csv")
+#
+teo_decrease_8<-subset(teo_dash, Chromosome=="8")
+write.csv(teo_decrease_8,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_dec_8.csv")
+#
+teo_decrease_9<-subset(teo_dash, Chromosome=="9")
+write.csv(teo_decrease_9,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_dec_9.csv")
+#
+teo_decrease_10<-subset(teo_dash, Chromosome=="10")
+write.csv(teo_decrease_10,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_dec_10.csv")
+#
+
 
