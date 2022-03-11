@@ -66,12 +66,11 @@ teosintesnp$Position = as.numeric(as.character(teosintesnp$Position))
 is.numeric(teosintesnp$Position)
 teo_quest <- teosintesnp[order(teosintesnp$Position) ,]
 #The next step is to reverse sort by Position and replace ? with -
-#dashm <-gsub("?","-", maize_quest) 
-#view(dashm)
-#not sure about the above so im going to save and exit
-#yeah ok after returning the following day that still looks terrible
-#so let's try again
 view(maize_quest)
-maize_dash <- data.frame(lapply(maize_quest, gsub, pattern = "[?]", replacement = "-"))
-teo_dash <- data.frame(lapply(teo_quest, gsub, pattern = "[?]", replacement = "-"))
+maize_dash1 <- data.frame(lapply(maize_quest, gsub, pattern = "[?]", replacement = "-"))
+teo_dash1 <- data.frame(lapply(teo_quest, gsub, pattern = "[?]", replacement = "-"))
+is.data.frame(teo_dash1)
+#and I will inverse sort by position
+maize_dash <-maize_dash1[order(rev(maize_dash1$Position)),]
+teo_dash <-teo_dash1[order(rev(teo_dash1$Position)),]
 
