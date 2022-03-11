@@ -204,4 +204,19 @@ write.csv(teo_decrease_10,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_
 #now that I have created all the files, I'm going to clear the environment, delete the files, 
 #and run the whole thing through a test drive. 
 #fixed the bugs, hallelujah
-
+#
+#
+#Now on to visualization
+#Visualization tasks: 
+#SNPs per Chromosome
+  #What is the distribution of SNPs on and across chromosomes? 
+  #Are there more SNP positions in maize or teosinte individuals?
+#Missing data and amount of heterozygosity
+  #What is the proportion of homozygous and heterozygous sites as well as missing data 
+  #in each sample and each group?
+  #Hints: Create a new column to indicate whether a particular site is homozygous 
+  #(has the same nucleotide on both chromosomes (i.e., A/A, C/C, G/G, T/T) 
+  #or heterozygous (otherwise)). Normalize the height of individual bars using 
+  #one of the ggplot "position adjustments" options.
+#Your own visualization
+  #Visualize one other feature of the dataset. The choice is up to you!
