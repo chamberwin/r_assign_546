@@ -229,6 +229,12 @@ maize_df <- maize_quest
 maize_df$Position = as.character(as.double(maize_df$Position))
 
 maize_df %>% pivot_longer(!Chromosome, names_to = "Position", values_to= "BP", )%>%  {.} -> maize_long
-view(maize_long)
-#did that work? not sure but i'm done for the night. 
 
+maize_long$Chromosome = as.numeric(as.character(maize_long$Chromosome))
+
+#did that work? not sure but i'm done for the night. 
+plot1 <- ggplot(data=maize_long, aes(x=Chromosome, y=Position)) +
+  geom_bar(stat="identity", fill="steelblue")+
+  geom_text(aes(label=Chromosome), vjust=-0.3, size=3.5)+
+  theme_minimal()
+print(plot1)
