@@ -231,3 +231,4 @@ maize_df$Position = as.character(as.double(maize_df$Position))
 maize_df %>% pivot_longer(!Chromosome, names_to = "Position", values_to= "BP", )%>%  {.} -> maize_long
 view(maize_long)
 #did that work? not sure but i'm done for the night. 
+
