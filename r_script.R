@@ -245,15 +245,8 @@ teo_long1 <- mutate(teo_long, teo_long$Species==("Teosinte"))
 view(teo_long1)
 bind <- bind_rows(maize_long1, teo_long1)
 view(bind)
-dim(bind)
-
-#did that work? not sure but i'm done for the night. 
-view(maize_df)
-counts <- table(maize_df$Chromosome)
-barplot(counts, main="Positions per Chromosome for Maize",
-        xlab="Chromosomes") 
-#The above works, but I  need it in ggplot
-ggplot(maize_long, aes(x=Chromosome)) + geom_histogram(bins=10)
-ggplot(maize_long, aes(x=Chromosome, fill= Chromosome,)) + geom_bar(bins=10 )
+#now I have the key file to make visualization1 from
+ggplot(bind, aes(x=Chromosome, fill= Species,color= Species)) + geom_bar(bins=10 )
+#looks awesome but could use a little improvement
 
                                                        
