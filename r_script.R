@@ -2,6 +2,7 @@ getwd()
 library(janitor)
 library(tidyverse)
 library(dplyr)
+library(ggplot2)
 fang<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/fang_et_al_genotypes.txt")
 #view(fang)
 snp<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/snp_position.txt")
@@ -221,5 +222,12 @@ write.csv(teo_decrease_10,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_
 #Your own visualization
   #Visualize one other feature of the dataset. The choice is up to you!
 #
-#To do these steps, I will use the "maize_quest" and "teo_quest" files
-#since order does not matter
+#To do these steps, I will use the "maize_dash" and "teo_dash" files
+#since order does not matter. I choose the dash files because the question mark 
+#appears to mess up a lot of R codes
+maize_df <- maize_quest
+maize_df$Position = as.character(as.double(maize_df$Position))
+
+maize_df %>% pivot_longer(!Chromosome, names_to = "Position", values_to= "BP", )%>%  {.} -> maize_long
+view(maize_long)
+#did that work? not sure but i'm done for the night. 
