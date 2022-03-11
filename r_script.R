@@ -69,8 +69,13 @@ teo_quest <- teosintesnp[order(teosintesnp$Position) ,]
 maize_dash1 <- data.frame(lapply(maize_quest, gsub, pattern = "[?]", replacement = "-"))
 teo_dash1 <- data.frame(lapply(teo_quest, gsub, pattern = "[?]", replacement = "-"))
 #and I will inverse sort by position
+maize_dash1$Position = as.numeric(as.character(maize_dash1$Position))
+teo_dash1$Position = as.numeric(as.character(teo_dash1$Position))
 maize_dash <-maize_dash1[order(rev(maize_dash1$Position)),]
 teo_dash <-teo_dash1[order(rev(teo_dash1$Position)),]
+#cleanup formatting
+maize_quest$Position = as.numeric(as.character(maize_quest$Position))
+teo_quest$Position = as.numeric(as.character(teo_quest$Position))
 #now I'm ready to split into separate files for maize and teosinte data. 
 # I need chr 1-10 of maize and teo, ascending position (maize_quest, teo_quest)
 # and also chr 1-10 of maize and teo, descending position (maize_dash, teo_dash)
@@ -198,5 +203,6 @@ write.csv(teo_decrease_10,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_
 #
 #now that I have created all the files, I'm going to clear the environment, delete the files, 
 #and run the whole thing through a test drive. 
-
+#almost. It is sorting by position alphabetically
+#changed formatting and it still didn't fix the problem 
 
