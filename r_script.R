@@ -203,6 +203,5 @@ write.csv(teo_decrease_10,"/Users/gracecarey/Documents/GitHub/r_assign_546//teo_
 #
 #now that I have created all the files, I'm going to clear the environment, delete the files, 
 #and run the whole thing through a test drive. 
-#almost. It is sorting by position alphabetically
-#changed formatting and it still didn't fix the problem 
+#fixed the bugs, hallelujah
 
