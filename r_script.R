@@ -309,4 +309,13 @@ Zy_try <- Zygosity
 head(Zy_try)                  
 Zy_try$Group <- str_extract(Zy_try$Sample,"(\\w+)") 
 head(Zy_try)
-ggplot(Zy_try, aes(x=Group, fill= Zygosity, color= Zygosity)) + geom_bar(bins=12, position = "dodge")
+Zy_1 <- filter(Zy_try, Group != "Chromosome")
+Zy_2 <- filter(Zy_1, Group != "Position")
+ggplot(Zy_2, aes(x=Group, fill= Zygosity, color= Zygosity)) + geom_bar(bins=10, position = "dodge")
+#in the above graph, we can see Zygosity by group
+Zy_fun <- Zy_2
+Zy_fun$Species = ifelse(Zy_fun$Group %in% c('ZMMLR','ZMMMR','ZMMIL') ,"Maize",
+                          ifelse(long_df$NT %in% c('ZMPBA','ZMPIL','ZMPJA'), "Teosinte",
+                                 "Teosinte"))   
+ggplot(Zy_fun, aes(x=Species, fill= Zygosity, color= Zygosity)) + geom_bar(bins=10, position = "dodge")
+#And finally, above see the Zygosity of maize and teosinte, compared. 
