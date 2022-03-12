@@ -1,0 +1,88 @@
+---
+title: "R_assign1.md"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+getwd()
+library(janitor)
+library(tidyverse)
+library(dplyr )
+library(ggplot2)
+library(reshape2)
+library(plyr)
+```
+After loading the required packages, read the required files into R. 
+```{r}
+fang<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/fang_et_al_genotypes.txt")
+view(fang)
+snp<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/snp_position.txt")
+view(snp)
+```
+Now I have both snp and fang files loaded and stored in objects in r.
+```{r}
+fang
+snp
+```
+
+This tells me that fang is a 2782X986 tibble and snp is a 983x15 tibble. Considerably smaller
+```{r}
+object.size(fang) #23.14 MB, or 23124584 bytes
+object.size(snp) #359.384 KB, or 359384 bytes
+```
+So to sum it up, fang is 2782 rows, 986 columns, and 23.14 MB, while snp is 983 rows, 15 columns, and 359.384 KB. 
+```{r}
+fangcols<-colnames(fang)
+snpcols<- colnames(snp)
+```
+For both files, SNP_ID is the first column. 
+```{r}
+maize <- filter(fang, `Group` %in% c('ZMMLR','ZMMMR','ZMMIL'))
+teosinte <- filter(fang, `Group` %in% c('ZMPBA','ZMPIL','ZMPJA'))
+```
+This has created subsets of the maize and teosinte values. 
+```{r}
+view(teosinte)
+```
+
+Just checking, it looks good so far. Next I need to transcribe my teosinte and maize files so that they rows and columns run in the other direction. 
+```{r}
+transteo <- t(teosinte)
+transmaize <- t(maize)
+```
+Next I will cut my SNP file so that I have the columns SNP_ID, Chromosome, and Position. 
+```{r}
+snpsnip <- select(snp, c('SNP_ID','Chromosome','Position'))
+view(snpsnip)
+```
+Looks good! I need to remove a few unnecessary rows from my files, make headers, and check my dimensions. 
+```{r}
+trimteo <- row_to_names(transteo, 3, remove_row = TRUE, remove_rows_above = TRUE)
+trimmaize <- row_to_names(transmaize, 3, remove_row = TRUE, remove_rows_above = TRUE)
+summary(trimteo)
+summary(snpsnip)
+```
+
