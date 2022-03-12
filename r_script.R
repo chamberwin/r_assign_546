@@ -286,6 +286,15 @@ trimfull1<-subset(fullsnp, Chromosome!="unknown" & Chromosome!="multiple")
 fullsnpcombo<-subset(trimfull1, Position!="multiple")
 #view(fullsnpcombo)
 #now I'm ready to designate as heterozygous or homozygous
-view(fullsnpcombo)
-longest_pivot <- pivot_longer(fullsnpcombo, c(2:2524), names_to = "NT", values_to = "count")
-view(longest_pivot)
+longest_pivot <- pivot_longer(fullsnpcombo, c(2:2524), names_to = "Sample", values_to = "NT")
+longest_pivot_trim <- longest_pivot[-c(1,2),]
+head(longest_pivot_trim)
+long_df <- longest_pivot_trim
+head(long_df)
+long_df$Zygosity = ifelse(long_df$NT %in% c("A/A","T/T","C/C","G/G","-/-") ,"Homozygous",
+                  ifelse(long_df$NT %in% c("A/A","T/T","C/C","G/G","-/-"), "Heterozygous",
+                         "Heterozygous"))                  
+Zygosity <- long_df
+head(Zygosity)
+#At this point, I have labeled cells with heterozygous or homozygous, as appropriate
+#I am now ready to visualize this part of the data. 
