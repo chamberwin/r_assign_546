@@ -299,3 +299,11 @@ Zygosity$Group <- str_extract(Zygosity$Sample,"(\\w+)")
 head(Zygosity)
 #At this point, I have labeled cells with heterozygous or homozygous, as appropriate
 #I am now ready to visualize this part of the data. 
+ggplot(Zygosity, aes(x=Group, fill= Zygosity, color= Zygosity)) + geom_bar(bins=12, position = "dodge")
+Zygosity$Group
+Zy_try <- Zygosity
+Zy_try[Zy_try == 'ZMMR'] <- 'ZMMR.1'
+head(Zy_try)                  
+Zy_try$Group <- str_extract(Zy_try$Sample,"(\\w+)") 
+ggplot(long_df, aes(x=Group, fill= Zygosity, color= Zygosity)) + geom_bar(bins=12, position = "dodge")
+
