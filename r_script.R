@@ -8,16 +8,16 @@ fang<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022
 snp<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/snp_position.txt")
 #view(snp)
 #Now I have both snp and fang files loaded and stored in objects in r
-fang #this tells me that fang is a 2782X986 tibble
-snp #and snp is a 983x15 tibble. Considerably smaller
+#fang #this tells me that fang is a 2782X986 tibble
+#snp #and snp is a 983x15 tibble. Considerably smaller
 object.size(fang) #23.14 MB, or 23124584 bytes
 object.size(snp) #359.384 KB, or 359384 bytes
 #so to sum it up, fang is 2782 rows, 986 columns, and 23.14 MB
 #while snp is 983 rows, 15 columns, and 359.384 KB. 
 fangcols<-colnames(fang)
-fangcols #here are the column names for my fang file
+#fangcols #here are the column names for my fang file
 snpcols<- colnames(snp)
-snpcols #and my column names for snp
+#snpcols #and my column names for snp
 #for both files, SNP_ID is the first column
 #Additionally, it would be helpful to make my variables separate
 #from my code as much as possible. Maybe alter it later?
@@ -39,8 +39,8 @@ snpsnip <- select(snp, c('SNP_ID','Chromosome','Position'))
 #of the "janitor" package. Very handy!
 trimteo <- row_to_names(transteo, 3, remove_row = TRUE, remove_rows_above = TRUE)
 trimmaize <- row_to_names(transmaize, 3, remove_row = TRUE, remove_rows_above = TRUE)
-summary(trimteo)
-summary(snpsnip)
+#summary(trimteo)
+#summary(snpsnip)
 #my two dataframes are equal length and sorted in the same way.I am now ready to join
 #by the common column. 
 teosnp <- cbind(snpsnip,trimteo)
@@ -235,11 +235,11 @@ teo_df %>% pivot_longer(!Chromosome, names_to = "Position", values_to= "BP", )%>
 maize_long$Chromosome = as.numeric(as.character(maize_long$Chromosome))
 teo_long$Chromosome = as.numeric(as.character(teo_long$Chromosome))
 
-view(maize_long)
-view(teo_long)
-dim(maize_long)
+#view(maize_long)
+#view(teo_long)
+#dim(maize_long)
 mutate(maize_long, maize_long$Species <- ("Maize"))
-view(maize_long)
+#view(maize_long)
 maize_long1 <- mutate(maize_long, maize_long$Species==("Maize"))
 maize_long%>% 
   select(Chromosome, Position) %>%
@@ -247,7 +247,7 @@ maize_long%>%
     Species = "Maize"
    
   )%>% {.} -> maize_mut
-view(maize_mut)
+#view(maize_mut)
 #
 teo_long%>% 
   select(Chromosome, Position) %>%
@@ -257,7 +257,7 @@ teo_long%>%
   )%>% {.} -> teo_mut
 
 bind <- bind_rows(maize_mut, teo_mut)
-view(bind)
+#view(bind)
 bind%>% 
   select(Chromosome, Position,Species) %>%
   mutate(
@@ -271,21 +271,8 @@ bind1$Chromosome = as.character(as.numeric(bind1$Chromosome))
 ggplot(bind1, aes(x=Chromosome, fill= Species, color= Species)) + geom_bar(bins=10, position = "dodge")
 #see above, the semi final success
 #
-fang #this tells me that fang is a 2782X986 tibble
-snp #and snp is a 983x15 tibble. Considerably smaller
-object.size(fang) #23.14 MB, or 23124584 bytes
-object.size(snp) #359.384 KB, or 359384 bytes
-#so to sum it up, fang is 2782 rows, 986 columns, and 23.14 MB
-#while snp is 983 rows, 15 columns, and 359.384 KB. 
-fangcols<-colnames(fang)
-fangcols #here are the column names for my fang file
-snpcols<- colnames(snp)
-snpcols #and my column names for snp
-#for both files, SNP_ID is the first column
-#Additionally, it would be helpful to make my variables separate
-#from my code as much as possible. Maybe alter it later?
 full_mt <- filter(fang, `Group` %in% c('ZMMLR','ZMMR','ZMMIL','ZMPBA','ZMPIL','ZMPJA'))
-view(full_mt)
+#view(full_mt)
 trans_full_mt <- t(full_mt)
 
 #looks good. Now I will trim and add a header using the "row_to_names" function
@@ -297,5 +284,8 @@ trimfull <- row_to_names(trans_full_mt, 3, remove_row = TRUE, remove_rows_above 
 fullsnp <- cbind(snpsnip,trimfull)
 trimfull1<-subset(fullsnp, Chromosome!="unknown" & Chromosome!="multiple")
 fullsnpcombo<-subset(trimfull1, Position!="multiple")
-view(fullsnpcombo)
+#view(fullsnpcombo)
 #now I'm ready to designate as heterozygous or homozygous
+view(fullsnpcombo)
+longest_pivot <- pivot_longer(fullsnpcombo, c(2:2524), names_to = "NT", values_to = "count")
+view(longest_pivot)
