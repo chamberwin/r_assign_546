@@ -295,6 +295,7 @@ long_df$Zygosity = ifelse(long_df$NT %in% c("A/A","T/T","C/C","G/G","-/-") ,"Hom
                   ifelse(long_df$NT %in% c("A/A","T/T","C/C","G/G","-/-"), "Heterozygous",
                          "Heterozygous"))                  
 Zygosity <- long_df
+Zygosity$Group <- str_extract(Zygosity$Sample,"(\\w+)") 
 head(Zygosity)
 #At this point, I have labeled cells with heterozygous or homozygous, as appropriate
 #I am now ready to visualize this part of the data. 
