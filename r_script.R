@@ -1,8 +1,11 @@
 getwd()
 library(janitor)
 library(tidyverse)
-library(dplyr)
+library(dplyr )
 library(ggplot2)
+library(reshape2)
+install.packages("ddply")
+library(plyr)
 fang<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/fang_et_al_genotypes.txt")
 #view(fang)
 snp<-read_tsv("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/snp_position.txt")
@@ -278,7 +281,6 @@ trans_full_mt <- t(full_mt)
 #looks good. Now I will trim and add a header using the "row_to_names" function
 #of the "janitor" package. Very handy!
 trimfull <- row_to_names(trans_full_mt, 3, remove_row = TRUE, remove_rows_above = TRUE)
-
 #my two dataframes are equal length and sorted in the same way.I am now ready to join
 #by the common column. 
 fullsnp <- cbind(snpsnip,trimfull)
@@ -305,5 +307,15 @@ Zy_try <- Zygosity
 Zy_try[Zy_try == 'ZMMR'] <- 'ZMMR.1'
 head(Zy_try)                  
 Zy_try$Group <- str_extract(Zy_try$Sample,"(\\w+)") 
-ggplot(long_df, aes(x=Group, fill= Zygosity, color= Zygosity)) + geom_bar(bins=12, position = "dodge")
-
+head(Zy_try)
+ggplot(Zy_try, aes(x=Group, fill= Zygosity, color= Zygosity)) + geom_bar(bins=12, position = "dodge")
+genotypes <- fang
+Names <- colnames(genotypes)[-c(1:3)]
+genotypes.melt <- melt(genotypes, measure.vars = Names)
+colnames(genotypes.melt)[c(3,4,5)] <- c("Group","SNP_ID", "Allele") #Melting data to make it easier to work with
+genotypes.melt$Ho <- (genotypes.melt$Allele =="A/A" | genotypes.melt$Allele =="C/C" | genotypes.melt$Allele =="G/G" | genotypes.melt$Allele =="T/T")
+sortedmelt <- arrange(genotypes.melt, Sample_ID, Group)
+summarize.ID <- ddply(sortedmelt, c("Sample_ID"), summarise, total_ho = sum (Ho, na.rm=TRUE), total_het = sum (!Ho, na.rm=TRUE), missing = sum(is.na(Ho)))#Missing data and heterozygous ratio parameters
+summarize.melt <- melt(summarize.ID, measure.vars = c("total_ho", "total_het", "missing"))
+ggplot(summarize.melt,aes(x = Sample_ID, y = value, fill=variable)) + geom_bar(stat = "identity", position = "stack")
+attributes(summarize.melt)
