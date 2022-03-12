@@ -24,7 +24,7 @@ snpcols<- colnames(snp)
 #for both files, SNP_ID is the first column
 #Additionally, it would be helpful to make my variables separate
 #from my code as much as possible. Maybe alter it later?
-maize <- filter(fang, `Group` %in% c('ZMMLR','ZMMR','ZMMIL'))
+maize <- filter(fang, `Group` %in% c('ZMMLR','ZMMMR','ZMMIL'))
 #view(maize)
 #this has created a subset of just the Maize values
 teosinte <- filter(fang, `Group` %in% c('ZMPBA','ZMPIL','ZMPJA'))
@@ -274,7 +274,9 @@ bind1$Chromosome = as.character(as.numeric(bind1$Chromosome))
 ggplot(bind1, aes(x=Chromosome, fill= Species, color= Species)) + geom_bar(bins=10, position = "dodge")
 #see above, the semi final success
 #
-full_mt <- filter(fang, `Group` %in% c('ZMMLR','ZMMR','ZMMIL','ZMPBA','ZMPIL','ZMPJA'))
+
+full_mt <- filter(fang, `Group` %in% c('ZMMLR','ZMMMR','ZMMIL','ZMPBA','ZMPIL','ZMPJA'))
+
 #view(full_mt)
 trans_full_mt <- t(full_mt)
 
@@ -304,18 +306,7 @@ head(Zygosity)
 ggplot(Zygosity, aes(x=Group, fill= Zygosity, color= Zygosity)) + geom_bar(bins=12, position = "dodge")
 Zygosity$Group
 Zy_try <- Zygosity
-Zy_try[Zy_try == 'ZMMR'] <- 'ZMMR.1'
 head(Zy_try)                  
 Zy_try$Group <- str_extract(Zy_try$Sample,"(\\w+)") 
 head(Zy_try)
 ggplot(Zy_try, aes(x=Group, fill= Zygosity, color= Zygosity)) + geom_bar(bins=12, position = "dodge")
-genotypes <- fang
-Names <- colnames(genotypes)[-c(1:3)]
-genotypes.melt <- melt(genotypes, measure.vars = Names)
-colnames(genotypes.melt)[c(3,4,5)] <- c("Group","SNP_ID", "Allele") #Melting data to make it easier to work with
-genotypes.melt$Ho <- (genotypes.melt$Allele =="A/A" | genotypes.melt$Allele =="C/C" | genotypes.melt$Allele =="G/G" | genotypes.melt$Allele =="T/T")
-sortedmelt <- arrange(genotypes.melt, Sample_ID, Group)
-summarize.ID <- ddply(sortedmelt, c("Sample_ID"), summarise, total_ho = sum (Ho, na.rm=TRUE), total_het = sum (!Ho, na.rm=TRUE), missing = sum(is.na(Ho)))#Missing data and heterozygous ratio parameters
-summarize.melt <- melt(summarize.ID, measure.vars = c("total_ho", "total_het", "missing"))
-ggplot(summarize.melt,aes(x = Sample_ID, y = value, fill=variable)) + geom_bar(stat = "identity", position = "stack")
-attributes(summarize.melt)
