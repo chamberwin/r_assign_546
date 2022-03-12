@@ -6,15 +6,14 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
+First I will load all the required packages. 
 ```{r}
-getwd()
 library(janitor)
 library(tidyverse)
+library(plyr)
 library(dplyr )
 library(ggplot2)
 library(reshape2)
-library(plyr)
 ```
 After loading the required packages, read the required files into R. 
 ```{r}
@@ -63,8 +62,8 @@ Looks good! I need to remove a few unnecessary rows from my files, make headers,
 ```{r}
 trimteo <- row_to_names(transteo, 3, remove_row = TRUE, remove_rows_above = TRUE)
 trimmaize <- row_to_names(transmaize, 3, remove_row = TRUE, remove_rows_above = TRUE)
-summary(trimteo)
-summary(snpsnip)
+#summary(trimteo) if you want to see the teosinte summary
+#summary(snpsnip) if you want to see the trimmed snp file summary
 ```
 My dataframes are equal length and all cleaned up, so now I will join by the common column.
 ```{r}
@@ -239,11 +238,8 @@ maize_df %>% pivot_longer(!Chromosome, names_to = "Position", values_to= "BP", )
 teo_df %>% pivot_longer(!Chromosome, names_to = "Position", values_to= "BP", )%>%  {.} -> teo_long
 maize_long$Chromosome = as.numeric(as.character(maize_long$Chromosome))
 teo_long$Chromosome = as.numeric(as.character(teo_long$Chromosome))
-view(maize_long)
-view(teo_long)
 dim(maize_long)
 mutate(maize_long, maize_long$Species <- ("Maize"))
-view(maize_long)
 maize_long1 <- mutate(maize_long, maize_long$Species==("Maize"))
 maize_long%>% 
   select(Chromosome, Position) %>%
@@ -282,13 +278,13 @@ Now I will move on to step two of the Visualization. I will go back to the steps
 ```{r}
 
 full_mt <- filter(fang, `Group` %in% c('ZMMLR','ZMMMR','ZMMIL','ZMPBA','ZMPIL','ZMPJA'))
-view(full_mt)
+#view(full_mt)
 trans_full_mt <- t(full_mt)
 trimfull <- row_to_names(trans_full_mt, 3, remove_row = TRUE, remove_rows_above = TRUE)
 fullsnp <- cbind(snpsnip,trimfull)
 trimfull1<-subset(fullsnp, Chromosome!="unknown" & Chromosome!="multiple")
 fullsnpcombo<-subset(trimfull1, Position!="multiple")
-view(fullsnpcombo)
+#view(fullsnpcombo)
 ```
 Now I have one huge file from which to find homozygous and heterozygous samples. 
 ```{r}
@@ -307,8 +303,6 @@ head(Zygosity)
 At this point, I have labeled cells with heterozygous or homozygous, as appropriate. I also created another column which contains Group IDs. 
 I am now ready to visualize this part of the data. 
 ```{r}
-ggplot(Zygosity, aes(x=Group, fill= Zygosity, color= Zygosity)) + geom_bar(bins=12, position = "dodge")
-Zygosity$Group
 Zy_try <- Zygosity
 head(Zy_try)                  
 Zy_try$Group <- str_extract(Zy_try$Sample,"(\\w+)") 

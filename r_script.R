@@ -279,12 +279,7 @@ full_mt <- filter(fang, `Group` %in% c('ZMMLR','ZMMMR','ZMMIL','ZMPBA','ZMPIL','
 
 #view(full_mt)
 trans_full_mt <- t(full_mt)
-
-#looks good. Now I will trim and add a header using the "row_to_names" function
-#of the "janitor" package. Very handy!
 trimfull <- row_to_names(trans_full_mt, 3, remove_row = TRUE, remove_rows_above = TRUE)
-#my two dataframes are equal length and sorted in the same way.I am now ready to join
-#by the common column. 
 fullsnp <- cbind(snpsnip,trimfull)
 trimfull1<-subset(fullsnp, Chromosome!="unknown" & Chromosome!="multiple")
 fullsnpcombo<-subset(trimfull1, Position!="multiple")
